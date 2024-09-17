@@ -33,3 +33,7 @@ jobs:
     steps:
       - name: Deploy code
         run: echo "Deploying..." 
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: dist-files
