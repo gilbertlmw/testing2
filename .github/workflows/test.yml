@@ -12,7 +12,24 @@ jobs:
         run: npm run lint
       - name: Test code
         run: npm run test
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependecies
+        run: npm ci      
       - name: Build code
         run: npm run build
+      - name: upload artifacts
+        use: actions/upload-artifact@v3
+        with:
+          name: dist-files
+          path: dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy code
         run: echo "Deploying..." 
